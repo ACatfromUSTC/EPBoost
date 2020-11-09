@@ -9,5 +9,10 @@ A **simple** but **accurate** method to identify enhancer-promoter interactions 
    and **three** files will be produced: ***enhancers.bed***,   ***promoters.bed***,   ***train.csv***<br>
 ### **STEP2** <br>
 * `python EPBoost.py k`<br>
-   This is the training program, the _k_ determines the length of the kmer, the balance ratio is training set and test set are both 1:20.
+   This is the training program, the _k_ determines the length of the kmer, the imbalance ratio in training set and test set are both 1:20.
+* `python EPBoost2.py k`<br>
+   This is the training program to compare with DeepTACT, the _k_ determines the length of the kmer, the imbalance ratio in training set is 1:20 and in test set is 1:5.
+### **Note** <br>
+   In percentage-normalization process, we basically adapted the code in ***seer_py*** which is originally from https://github.com/CalabreseLab/seekr.
 ## **Test**
+* `python EPBoost_Teat.py k`<br>
