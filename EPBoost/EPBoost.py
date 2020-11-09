@@ -16,7 +16,6 @@ import numpy,random,math
 # classifier
 from sklearn.model_selection import StratifiedKFold, cross_val_score
 from sklearn.ensemble import GradientBoostingClassifier
-import pandas as pd
 from sklearn.tree import DecisionTreeClassifier
 from imblearn.ensemble import BalanceCascade
 import itertools
