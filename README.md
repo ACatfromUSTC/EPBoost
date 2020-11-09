@@ -8,6 +8,6 @@ A **simple** but **accurate** method to identify enhancer-promoter interactions 
    only **one** file is needed: ***dataset/TargetFinder(or DeepTACT)/celllinename/pairs.csv***<br>
    and **three** files will be produced: ***enhancers.bed***,   ***promoters.bed***,   ***train.csv***<br>
 ### **STEP2** <br>
-* `python epnetfeature.py k`<br>
+* `python EPBoost.py k`<br>
    This is the training program, the _k_ determines the length of the kmer
 ## **Test**
