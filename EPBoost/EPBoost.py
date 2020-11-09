@@ -10,12 +10,7 @@ import os
 import time
 import sys
 import pandas as pd
-# gensim modules
-from gensim import utils
-from gensim.models.doc2vec import TaggedDocument
-from gensim.models import Doc2Vec
-# random shuffle
-from random import shuffle
+
 # numpy
 import numpy,random,math
 # classifier
@@ -31,31 +26,15 @@ from keras.regularizers import l2
 from keras.layers import Dense, Dropout, Flatten, Conv1D, LSTM,Bidirectional,MaxPooling1D,Activation,BatchNormalization
 from keras.utils import to_categorical
 
-#SMOTE
+#EPBoost
 from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import train_test_split
-from sklearn.model_selection import GridSearchCV
-from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import classification_report, roc_curve, precision_score, f1_score, recall_score, precision_recall_curve, auc, average_precision_score
-from imblearn.over_sampling import SMOTE
-from xgboost import XGBClassifier
 from sklearn import metrics, svm
-from imblearn.combine import SMOTETomek, SMOTEENN
 from catboost import CatBoostClassifier
-from imblearn.ensemble import EasyEnsemble
-from imblearn.ensemble import BalancedBaggingClassifier
-from sklearn.metrics import balanced_accuracy_score
-from keras import optimizers
-from sklearn.ensemble import AdaBoostClassifier
 from sklearn.preprocessing import StandardScaler, MinMaxScaler
-from sklearn.linear_model import LogisticRegression
-from imblearn.ensemble import EasyEnsembleClassifier
-from imblearn.ensemble import RUSBoostClassifier
 import pandas as pd
-import lightgbm as lgb
-from sklearn.feature_selection import SelectKBest, mutual_info_classif, f_regression, f_classif, chi2
 from scipy.stats import pearsonr
-from sklearn.metrics.pairwise import polynomial_kernel, rbf_kernel, additive_chi2_kernel
 import matplotlib.pyplot as plt
 
 kvalue = int(sys.argv[1])
@@ -176,18 +155,18 @@ def plot_AUROC(fpr,tpr):
     ax.spines['top'].set_linewidth(3);####设置上部坐标轴的粗细
     plt.tick_params(labelsize=20)
     labels = ax.get_xticklabels() + ax.get_yticklabels()
-    [label.set_fontname('arial') for label in labels]
+    [label.set_fontname('Arial') for label in labels]
 
     ax.tick_params(axis='x',width=2,colors='black')
 
     ax.tick_params(axis='y',width=2,colors='black')
     
 
-    font1 = {'family' : 'arial',
+    font1 = {'family' : 'Arial',
     'weight' : 'normal',
     'size'   : 10,
     }
-    font2 = {'family' : 'arial',
+    font2 = {'family' : 'Arial',
     'weight' : 'normal',
     'size'   : 30,
     }
@@ -208,18 +187,18 @@ def plot_AUPRC(rec,prec):
     ax.spines['top'].set_linewidth(3);####设置上部坐标轴的粗细
     plt.tick_params(labelsize=20)
     labels = ax.get_xticklabels() + ax.get_yticklabels()
-    [label.set_fontname('arial') for label in labels]
+    [label.set_fontname('Arial') for label in labels]
 
     ax.tick_params(axis='x',width=2,colors='black')
 
     ax.tick_params(axis='y',width=2,colors='black')
     
 
-    font1 = {'family' : 'arial',
+    font1 = {'family' : 'Arial',
     'weight' : 'normal',
     'size'   : 10,
     }
-    font2 = {'family' : 'arial',
+    font2 = {'family' : 'Arial',
     'weight' : 'normal',
     'size'   : 30,
     }
@@ -267,7 +246,7 @@ for train,test in cv.split(X_train, y_train):
 
 
 
-print ('Epnet,kmer feature selection using EPBoost:')
+print ('E-P interaction prediction using EPBoost:')
 print ('acc:',numpy.mean(acc),numpy.std(acc))
 print ('auc',numpy.mean(auc),numpy.std(auc))
 print ('aupr',numpy.mean(aupr),numpy.std(aupr))
