@@ -11,4 +11,6 @@ python DataPrepare.py<br>
       file1: ***enhancers.bed***<br>
       file2: ***promoters.bed***<br>
       file3: ***train.csv***<br>
+**STEP2** <br>
+python epnetfeature.py k
 #Test
