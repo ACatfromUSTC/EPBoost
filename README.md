@@ -14,7 +14,7 @@ A **simple** but **accurate** method to identify enhancer-promoter interactions 
    This is the training program to compare with DeepTACT, the _k_ determines the length of the kmer which can be ranged from 3 to 7, the imbalance ratio in training set is 1:20 and in test set is 1:5.
 ### **Note** <br>
    In percentage-normalization process, we basically adapted the code in ***seer_py*** which is originally from https://github.com/CalabreseLab/seekr.
-   We use hg19.fa file as a reference genome which can be downloaded from http://hgdownload.soe.ucsc.edu/goldenPath/hg19/bigZips/.
+   We use hg19.fa file as a reference genome which can be downloaded from http://hgdownload.soe.ucsc.edu/goldenPath/hg19/bigZips/hg19.fa.gz.
 
 ## **Test**
 * `python EPBoost_Test.py k`<br>
