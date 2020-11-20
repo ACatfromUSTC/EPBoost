@@ -17,4 +17,5 @@ A **quick** and **accurate** method to identify enhancer-promoter interactions u
    We use hg19.fa file as a reference genome which can be downloaded from http://hgdownload.soe.ucsc.edu/goldenPath/hg19/bigZips/hg19.fa.gz.
 
 ## **Test**
-* `python EPBoost_Test.py k NHEK GM12878`<br>
+* `python EPBoost_Test.py k model_cell test_cell`<br>
+   This is the test program, the _k_ determines the length of the kmer which can be ranged from 3 to 7, the _model_cell_ defines the trained model we use for predicting, the _test_cell_ refers to the cell line we would like to make a prediction.
