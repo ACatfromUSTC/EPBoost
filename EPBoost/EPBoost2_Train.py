@@ -146,11 +146,11 @@ def plot_AUROC(fpr,tpr):
     plt.figure(1, figsize=(8.5,8.5))
     
     plt.plot(fpr,tpr,label = 'Fold'+str(i)+': AUC = '+str('%.3f'%auc[-1]),linewidth = 2)
-    ax=plt.gca();#获得坐标轴的句柄
-    ax.spines['bottom'].set_linewidth(3);###设置底部坐标轴的粗细
-    ax.spines['left'].set_linewidth(3);####设置左边坐标轴的粗细
-    ax.spines['right'].set_linewidth(3);###设置右边坐标轴的粗细
-    ax.spines['top'].set_linewidth(3);####设置上部坐标轴的粗细
+    ax=plt.gca();
+    ax.spines['bottom'].set_linewidth(3);
+    ax.spines['left'].set_linewidth(3);
+    ax.spines['right'].set_linewidth(3);
+    ax.spines['top'].set_linewidth(3);
     plt.tick_params(labelsize=20)
     labels = ax.get_xticklabels() + ax.get_yticklabels()
     [label.set_fontname('arial') for label in labels]
@@ -168,7 +168,7 @@ def plot_AUROC(fpr,tpr):
     'weight' : 'normal',
     'size'   : 30,
     }
-    plt.xlabel(u'False Positive Rate', font2) # 这一段
+    plt.xlabel(u'False Positive Rate', font2) 
     plt.ylabel(u'True Positive Rate', font2)
     plt.title('ROC Curve', font2)
     plt.legend(prop = font1)
@@ -178,11 +178,11 @@ def plot_AUPRC(rec,prec):
     plt.figure(2, figsize=(8.5,8.5))
     
     plt.plot(rec,prec,label = 'Fold'+str(i)+': AUPR = '+str('%.3f'%aupr[-1]),linewidth = 2)
-    ax=plt.gca();#获得坐标轴的句柄
-    ax.spines['bottom'].set_linewidth(3);###设置底部坐标轴的粗细
-    ax.spines['left'].set_linewidth(3);####设置左边坐标轴的粗细
-    ax.spines['right'].set_linewidth(3);###设置右边坐标轴的粗细
-    ax.spines['top'].set_linewidth(3);####设置上部坐标轴的粗细
+    ax=plt.gca();
+    ax.spines['bottom'].set_linewidth(3);
+    ax.spines['left'].set_linewidth(3);
+    ax.spines['right'].set_linewidth(3);
+    ax.spines['top'].set_linewidth(3);
     plt.tick_params(labelsize=20)
     labels = ax.get_xticklabels() + ax.get_yticklabels()
     [label.set_fontname('arial') for label in labels]
@@ -201,7 +201,7 @@ def plot_AUPRC(rec,prec):
     'size'   : 30,
     }
     plt.title('Precision/Recall Curve', font2)
-    plt.xlabel(u'Recall', font2) # 这一段
+    plt.xlabel(u'Recall', font2) 
     plt.ylabel(u'Precision', font2)
     plt.legend(prop = font1)
     plt.savefig('AUPRC{}.png'.format(kvalue),dpi = 300)
@@ -243,7 +243,7 @@ for train,test in cv.split(X_train, y_train):
         aupr.append(metrics.average_precision_score(y_train[test],y_proba_pred))
         if metrics.average_precision_score(y_train[test],y_proba_pred) > max_num:
             max_num = metrics.average_precision_score(y_train[test],y_proba_pred)
-            model.save_model('best_model6')
+            model.save_model('best_model{}'.format(kvalue))
         prec, rec, thres = metrics.precision_recall_curve(y_train[test],y_proba_pred ,pos_label=1)
         auprc.append(metrics.auc(rec, prec))
 
