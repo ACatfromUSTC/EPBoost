@@ -17,4 +17,4 @@ A **simple** but **accurate** method to identify enhancer-promoter interactions 
    We use hg19.fa file as a reference genome which can be downloaded from http://hgdownload.soe.ucsc.edu/goldenPath/hg19/bigZips/hg19.fa.gz.
 
 ## **Test**
-* `python EPBoost_Test.py k`<br>
+* `python EPBoost_Test.py k NHEK GM12878`<br>
