@@ -180,10 +180,10 @@ def plot_AUPRC(rec,prec):
     
     plt.plot(rec,prec,label = 'Fold'+str(i)+': AUPR = '+str('%.3f'%aupr[-1]),linewidth = 2)
     ax=plt.gca();#获得坐标轴的句柄
-    ax.spines['bottom'].set_linewidth(3);###设置底部坐标轴的粗细
-    ax.spines['left'].set_linewidth(3);####设置左边坐标轴的粗细
-    ax.spines['right'].set_linewidth(3);###设置右边坐标轴的粗细
-    ax.spines['top'].set_linewidth(3);####设置上部坐标轴的粗细
+    ax.spines['bottom'].set_linewidth(3);
+    ax.spines['left'].set_linewidth(3);
+    ax.spines['right'].set_linewidth(3);
+    ax.spines['top'].set_linewidth(3);
     plt.tick_params(labelsize=20)
     labels = ax.get_xticklabels() + ax.get_yticklabels()
     [label.set_fontname('Arial') for label in labels]
@@ -202,7 +202,7 @@ def plot_AUPRC(rec,prec):
     'size'   : 30,
     }
     plt.title('Precision/Recall Curve', font2)
-    plt.xlabel(u'Recall', font2) # 这一段
+    plt.xlabel(u'Recall', font2) 
     plt.ylabel(u'Precision', font2)
     plt.legend(prop = font1)
     plt.savefig('AUPRC{}.png'.format(kvalue),dpi = 300)
