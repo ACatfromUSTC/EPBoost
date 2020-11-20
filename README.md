@@ -1,5 +1,5 @@
 # EPBoost
-A **simple** but **accurate** method to identify enhancer-promoter interactions using intrinsic features generated from genomic sequence.
+A **quick** and **accurate** method to identify enhancer-promoter interactions using intrinsic features generated from genomic sequences.
 
 ## **Training**
 ### **STEP1** <br>
