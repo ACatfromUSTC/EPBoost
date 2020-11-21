@@ -1,5 +1,10 @@
 # EPBoost
-A **quick** and **accurate** method to identify enhancer-promoter interactions using intrinsic features generated from genomic sequences.
+  A **quick** and **accurate** method to identify enhancer-promoter interactions using intrinsic features generated from genomic sequences.
+
+## **License**
+  EPBoost is free for non-commercial research.
+## **Download**
+  Please download the related profiles from https://github.com/ACatfromUSTC/EPBoost/. 
 
 ## **Training**
 ### **STEP1** <br>
@@ -13,7 +18,7 @@ A **quick** and **accurate** method to identify enhancer-promoter interactions u
 * `python EPBoost2.py k`<br>
    This is the training program to compare with DeepTACT, the _k_ determines the length of the kmer which can be ranged from 3 to 7, the imbalance ratio in training set is 1:20 and in test set is 1:5.
 ### **Note** <br>
-   In percentage-normalization process, we basically adapted the code in ***seer_py*** which is originally from https://github.com/CalabreseLab/seekr.
+   In normalization process the counts of the kmer are percent, we basically adapted the code in ***seer_py*** which is originally from https://github.com/CalabreseLab/seekr.
    We use hg19.fa file as a reference genome which can be downloaded from http://hgdownload.soe.ucsc.edu/goldenPath/hg19/bigZips/hg19.fa.gz.
 
 ## **Test**
