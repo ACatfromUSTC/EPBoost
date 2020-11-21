@@ -1,10 +1,6 @@
 # EPBoost
   EPBoost is a **quick** and **accurate** method to identify enhancer-promoter interactions using intrinsic features generated from genomic sequences. It exploits the kmer content counts of the sequences as inputs and trains and predicts with a CatBoost model. To evaluate the performance of the model we extracted interaction data of 12 cell lines from **TargetFinder** https://github.com/shwhalen/targetfinder and **DeepTACT** https://github.com/liwenran/DeepTACT. 
 
-## **License**
-  EPBoost is free for non-commercial research.
-## **Download**
-  Please download the related profiles from https://github.com/ACatfromUSTC/EPBoost/. 
 
 ## **Training**
 ### **STEP1** <br>
@@ -24,3 +20,12 @@
 ## **Test**
 * `python EPBoost_Test.py k model_cell test_cell`<br>
    This is the test program, the _k_ determines the length of the kmer which can be ranged from 3 to 7, the _model_cell_ defines the trained model we use for predicting, the _test_cell_ refers to the cell line we would like to make a prediction.
+
+
+## **Requirements**
+
+
+## **License**
+  EPBoost is licensed under the MIT License - details can be found in the LICENSE.md file
+## **Download**
+  Please download the related profiles from https://github.com/ACatfromUSTC/EPBoost/. 
