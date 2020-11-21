@@ -24,10 +24,11 @@
 
 ## **Requirements**
 * Python (run on 3.6.8)
-* scikit-learn (run on 0.23.2)
-* numpy (run on 1.17.4)
+* scikit-learn (run on 0.21.3)
+* numpy (run on 1.16.2)
 * bedtools (run on 2.28.0)
-* catboost
+* catboost (run on 0.20)
+* matplotlib (run on 3.1.2)
 
 ## **License**
   EPBoost is licensed under the MIT License - details can be found in the LICENSE.md file
