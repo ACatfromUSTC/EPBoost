@@ -1,7 +1,9 @@
 # EPBoost
-  EPBoost is a **quick** and **accurate** method to identify enhancer-promoter interactions using intrinsic features generated from genomic sequences. It exploits the kmer content counts of the sequences as inputs and trains and predicts with a CatBoost model. To evaluate the performance of the model we extracted interaction data of 12 cell lines from **TargetFinder** https://github.com/shwhalen/targetfinder and **DeepTACT** https://github.com/liwenran/DeepTACT. 
-
-
+  EPBoost is a **quick** and **accurate** method to identify enhancer-promoter interactions using intrinsic features generated from genomic sequences. It exploits the kmer content counts of the sequences as inputs and trains and predicts with a CatBoost model.
+  
+## **Material**
+ To evaluate the performance of the model we extracted interaction data of 12 cell lines from **TargetFinder** https://github.com/shwhalen/targetfinder and **DeepTACT** https://github.com/liwenran/DeepTACT. 
+ 
 ## **Training**
 ### **STEP1** <br>
 * `python DataPrepare.py`<br>
