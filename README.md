@@ -23,7 +23,10 @@
 
 
 ## **Requirements**
-
+* Python (run on 3.6.8)
+* scikit-learn (run on 0.23.2)
+* numpy (run on 1.17.4)
+* bedtools (run on 2.28.0)
 
 ## **License**
   EPBoost is licensed under the MIT License - details can be found in the LICENSE.md file
