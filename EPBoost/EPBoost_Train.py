@@ -18,12 +18,6 @@ from sklearn.model_selection import StratifiedKFold, cross_val_score
 from sklearn.ensemble import GradientBoostingClassifier
 from sklearn.tree import DecisionTreeClassifier
 from imblearn.ensemble import BalanceCascade
-import itertools
-import smart_open
-from keras import models
-from keras.regularizers import l2
-from keras.layers import Dense, Dropout, Flatten, Conv1D, LSTM,Bidirectional,MaxPooling1D,Activation,BatchNormalization
-from keras.utils import to_categorical
 
 #EPBoost
 from sklearn.preprocessing import StandardScaler
@@ -37,10 +31,10 @@ from scipy.stats import pearsonr
 import matplotlib.pyplot as plt
 
 kvalue = int(sys.argv[1])
-os.system("bedtools getfasta -fi /bio_data/wangzihang/epnet/hg19.fa -bed enhancers.bed -fo enhancers.fa")
-os.system("bedtools getfasta -fi /bio_data/wangzihang/epnet/hg19.fa -bed promoters.bed -fo promoters.fa")
-os.system("python3 /bio_data/wangzihang/percentkequals3/seekr_py/src/kmer_counts.py enhancers.fa -o enhancers.txt -k {} -nb".format(kvalue))
-os.system("python3 /bio_data/wangzihang/percentkequals3/seekr_py/src/kmer_counts.py promoters.fa -o promoters.txt -k {} -nb".format(kvalue))
+os.system("bedtools getfasta -fi ../hg19.fa -bed enhancers.bed -fo enhancers.fa")
+os.system("bedtools getfasta -fi ../hg19.fa -bed promoters.bed -fo promoters.fa")
+os.system("python3 ../seekr_py/src/kmer_counts.py enhancers.fa -o enhancers.txt -k {} -nb".format(kvalue))
+os.system("python3 ../seekr_py/src/kmer_counts.py promoters.fa -o promoters.txt -k {} -nb".format(kvalue))
 kmer = 4**kvalue
 print(kmer)
 enhancers_num=0
