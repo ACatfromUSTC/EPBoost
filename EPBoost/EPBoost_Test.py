@@ -67,8 +67,8 @@ for line in fin2:
 
 
 #generate index
-fin3 = open(test_filepath+'{}train.csv'.format(cellline),'r')
-fout1 = open(test_filepath+'training.txt','w')
+fin3 = open(test_filepath+'{}/train.csv'.format(cellline),'r')
+fout1 = open(test_filepath+'{}/training.txt','w')
 
 
 for line in fin3:
@@ -88,10 +88,10 @@ arrays = numpy.zeros((train_num, kmer*2))
 labels = numpy.zeros(train_num)
 distance = numpy.zeros(train_num)
 
-fin = open(test_filepath+'training.txt','r')
+fin = open(test_filepath+'{}/training.txt','r')
 
-fin1 = open(test_filepath+'enhancers.txt','r')
-fin2 = open(test_filepath+'promoters.txt','r')
+fin1 = open(test_filepath+'{}/enhancers.txt','r')
+fin2 = open(test_filepath+'{}/promoters.txt','r')
 df1=[]
 df2=[]
 
@@ -179,7 +179,7 @@ def plot_AUPRC(rec,prec):
     plt.figure(2, figsize=(8.5,8.5))
     
     plt.plot(rec,prec,label = 'Fold'+str(i)+': AUPR = '+str('%.3f'%aupr[-1]),linewidth = 2)
-    ax=plt.gca();#获得坐标轴的句柄
+    ax=plt.gca();
     ax.spines['bottom'].set_linewidth(3);
     ax.spines['left'].set_linewidth(3);
     ax.spines['right'].set_linewidth(3);
@@ -215,7 +215,7 @@ for train,test in cv.split(X_train, y_train):
         estimator = CatBoostClassifier(iterations = 1000,depth = 10,learning_rate = 0.1,logging_level = None,scale_pos_weight = 45)
         #estimator = svm.SVC(kernel = 'rbf',C = 10, gamma = 0.012)
         #estimator = lgb.LGBMClassifier(is_unbalance = True, learning_rate = 0.012)
-        estimator.load_model('{}/{}/best_model3'.format(test_filepath,model_cellline))
+        estimator.load_model('{}{}/best_model3'.format(test_filepath,model_cellline))
 
         y_pred = estimator.predict(X_train[test,:])
         y_proba_pred = estimator.predict_proba(X_train[test,:])[:,1]
@@ -230,9 +230,6 @@ for train,test in cv.split(X_train, y_train):
         auc.append(metrics.auc(fpr, tpr))
         plot_AUROC(fpr,tpr)
         aupr.append(metrics.average_precision_score(y_train[test],y_proba_pred))
-        '''if metrics.average_precision_score(y_train[test],y_proba_pred) > max_num:
-            max_num = metrics.average_precision_score(y_train[test],y_proba_pred)
-            model.save_model('best_model6')'''
         prec, rec, thres = metrics.precision_recall_curve(y_train[test],y_proba_pred ,pos_label=1)
         auprc.append(metrics.auc(rec, prec))
 
