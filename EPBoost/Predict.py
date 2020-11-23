@@ -32,8 +32,8 @@ from scipy.stats import pearsonr
 import matplotlib.pyplot as plt
 
 kvalue = int(sys.argv[1])
-model_file = '/bio_data/wangzihang/percentkequals3/kequals3/EPnet6'
-model_select = '/'
+model_file = '/EPBoost/dataset/'
+model_select = 'Targetfinder/'
 cellline = str(sys.argv[2])
 enchrome = str(sys.argv[3])
 enstart = str(sys.argv[4])
@@ -63,16 +63,16 @@ train_num = 1
 
 fin1 = open('enhancer.bed','w')
 fin2 = open('promoter.bed','w')
-for i in range(2):
+for i in range(2): #In order to be suitable for using SEEKR.
     fin1.write(enchrome+'\t'+str(newenstart)+'\t'+str(newenend)+'\t'+enname+'\n')
     fin2.write(prchrome+'\t'+str(newprstart)+'\t'+str(newprend)+'\t'+prname+'\n')
 fin1.close()
 fin2.close()
 
-os.system("bedtools getfasta -fi /bio_data/wangzihang/epnet/hg19.fa -bed enhancer.bed -fo enhancer.fa")
-os.system("bedtools getfasta -fi /bio_data/wangzihang/epnet/hg19.fa -bed promoter.bed -fo promoter.fa")
-os.system("python3 /bio_data/wangzihang/percentkequals3/seekr_py/src/kmer_counts.py enhancer.fa -o enhancer.txt -k {} -nb".format(kvalue))
-os.system("python3 /bio_data/wangzihang/percentkequals3/seekr_py/src/kmer_counts.py promoter.fa -o promoter.txt -k {} -nb".format(kvalue))
+os.system("bedtools getfasta -fi ../hg19.fa -bed enhancer.bed -fo enhancer.fa")
+os.system("bedtools getfasta -fi ../hg19.fa -bed promoter.bed -fo promoter.fa")
+os.system("python3 ../seekr_py/src/kmer_counts.py enhancer.fa -o enhancer.txt -k {} -nb".format(kvalue))
+os.system("python3 ../seekr_py/src/kmer_counts.py promoter.fa -o promoter.txt -k {} -nb".format(kvalue))
 
 
 
@@ -117,7 +117,7 @@ print(X_train.shape[0],X_train.shape[1])
 
 
 estimator = CatBoostClassifier(iterations = 1000,depth = 10,learning_rate = 0.1,logging_level = None,scale_pos_weight = 45)
-estimator.load_model('{}/best_model{}'.format(model_filepath,kvalue))
+estimator.load_model('{}/{}/best_model{}'.format(model_filepath,cellline,kvalue))
 
 y_pred = estimator.predict(X_train)
 y_proba_pred = estimator.predict_proba(X_train)[:,1]
