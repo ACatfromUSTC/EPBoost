@@ -4,6 +4,21 @@
 ## **Material**
  To evaluate the performance of the model we extracted interaction data of 12 cell lines from **TargetFinder** https://github.com/shwhalen/targetfinder and **DeepTACT** https://github.com/liwenran/DeepTACT. 
 ## **Usage** 
+
+### **FilePath**
+  Take cell line GM12878 as an example:<br>
+  > EPBoost
+  >> dataset  
+  >>> EPBoost_Test.py <br>
+  >>> Predict.py <br>
+  >>> DeepTACT
+  >>> Targetfinder <br>
+  >>>> GM12878
+  >>>>> DataPrepare.py <br>
+  >>>>> EPBoost_Train.py <br>
+  >>>>> EPBoost2_Train.py <br>  
+      
+  
 ### **Training**
 #### **STEP1** <br>
 * `python DataPrepare.py`<br>
