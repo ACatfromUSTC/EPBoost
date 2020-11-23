@@ -17,7 +17,8 @@
    This is the training program to compare with DeepTACT, a 10-fold validation is also included. The _k_ determines the length of the kmer which can be ranged from 3 to 7, the imbalance ratio in training set is 1:20 and in test set is 1:5. In the process, profiles of _enhancers.bed_, _promoters.bed_, _train.csv_ are needed and _enhancers.fa_, _promoters.fa_, _enhancers.txt_, _promoters.txt_, _training.txt_ are intermediate processing files. At last, a best_model will be generated and saved.
 #### **Note** <br>
    In  processes counting and normalizing the kmer contents, we basically adapted the code in ***seer_py*** which is originally from https://github.com/CalabreseLab/seekr.
-   We use hg19.fa file as a reference genome which can be downloaded from http://hgdownload.soe.ucsc.edu/goldenPath/hg19/bigZips/hg19.fa.gz.
+   We use hg19.fa file as a reference genome which can be downloaded by <br>
+   `wget http://hgdownload.soe.ucsc.edu/goldenPath/hg19/bigZips/hg19.fa.gz`.
 
 ### **Test**
 * `python EPBoost_Test.py k model_cell_line test_cell_line`<br>
