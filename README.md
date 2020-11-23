@@ -26,7 +26,7 @@
 
 ### **Predict**
 * `python Predict.py k cell_line enchrome enstart enend prchrome prstart prend`<br>
-   This is the test program, the _k_ determines the length of the kmer which can be ranged from 3 to 7 (here we provide a model with ), the _cell_line_ defines the trained model we use for predicting, the _enchrome_, _enstart_, _enend_, _prchrome_, _prstart_, _prend_ refer to the locations of the enhancer and promoter we would like to make a prediction, respectively.
+   This is the predicting program, the _k_ determines the length of the kmer which can be ranged from 3 to 7 (here we provide a model with ), the _cell_line_ defines the trained model we use for predicting, the _enchrome_, _enstart_, _enend_, _prchrome_, _prstart_, _prend_ refer to the locations of the enhancer and promoter we would like to make a prediction, respectively.
 ## **Requirements**
 * Python (run on 3.6.8)
 * scikit-learn (run on 0.21.3)
