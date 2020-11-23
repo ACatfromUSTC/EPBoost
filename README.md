@@ -42,7 +42,7 @@
 
 ### **Predict**
 * `$ python Predict.py k cell_line enchrome enstart enend prchrome prstart prend`<br>
-   This is the predicting program, the _k_ determines the length of the kmer which can be ranged from 3 to 7 (here we provide a model with ), the _cell_line_ defines the trained model we use for predicting, the _enchrome_, _enstart_, _enend_, _prchrome_, _prstart_, _prend_ refer to the locations of the enhancer and promoter we would like to make a prediction, respectively.
+   This is the predicting program, the _k_ determines the length of the kmer which can be ranged from 3 to 7 (here we provide a model setting k at 3), the _cell_line_ defines the trained model we use for predicting, the _enchrome_, _enstart_, _enend_, _prchrome_, _prstart_, _prend_ refer to the locations of the enhancer and promoter we would like to make a prediction, respectively.
 #### **Example**
 * `$ python3 Predict.py 3 NHEK chr1 3399800 3400600 chr1 3541200 3542000` <br>
 **Output:** For Promoter NHEK|chr1:3399800-3400600, Enhancer NHEK|chr1:3541200-3542000 in cell line NHEK :
