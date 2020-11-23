@@ -18,12 +18,7 @@ from sklearn.model_selection import StratifiedKFold, cross_val_score
 from sklearn.ensemble import GradientBoostingClassifier
 from sklearn.tree import DecisionTreeClassifier
 from imblearn.ensemble import BalanceCascade
-import itertools
-import smart_open
-from keras import models
-from keras.regularizers import l2
-from keras.layers import Dense, Dropout, Flatten, Conv1D, LSTM,Bidirectional,MaxPooling1D,Activation,BatchNormalization
-from keras.utils import to_categorical
+
 
 #EPBoost
 from sklearn.preprocessing import StandardScaler
@@ -37,14 +32,15 @@ from scipy.stats import pearsonr
 import matplotlib.pyplot as plt
 
 kvalue = int(sys.argv[1])
-test_file = '/bio_data/wangzihang/percentkequals3/kequals3/'
-test_select = 'EPnet1/'
-cellline = 'GM12878'
+test_file = '/EPBoost/EPBoost/dataset/'
+test_select = 'TargetFinder/'
+model_cellline = str(sys.argv[2])
+cellline = str(sys.argv[3])
 test_filepath = test_file+test_select
-os.system("bedtools getfasta -fi /bio_data/wangzihang/epnet/hg19.fa -bed {}enhancers.bed -fo {}enhancers.fa".format(test_filepath,test_filepath))
-os.system("bedtools getfasta -fi /bio_data/wangzihang/epnet/hg19.fa -bed {}promoters.bed -fo {}promoters.fa".format(test_filepath,test_filepath))
-os.system("python3 /bio_data/wangzihang/percentkequals3/seekr_py/src/kmer_counts.py {}enhancers.fa -o {}enhancers.txt -k {} -nb".format(test_filepath,test_filepath,kvalue))
-os.system("python3 /bio_data/wangzihang/percentkequals3/seekr_py/src/kmer_counts.py {}promoters.fa -o {}promoters.txt -k {} -nb".format(test_filepath,test_filepath,kvalue))
+os.system("bedtools getfasta -fi ../hg19.fa -bed {}enhancers.bed -fo {}enhancers.fa".format(test_filepath,test_filepath))
+os.system("bedtools getfasta -fi ../hg19.fa -bed {}promoters.bed -fo {}promoters.fa".format(test_filepath,test_filepath))
+os.system("python3 ../seekr_py/src/kmer_counts.py {}enhancers.fa -o {}enhancers.txt -k {} -nb".format(test_filepath,test_filepath,kvalue))
+os.system("python3 ../seekr_py/src/kmer_counts.py {}promoters.fa -o {}promoters.txt -k {} -nb".format(test_filepath,test_filepath,kvalue))
 kmer = 4**kvalue
 print(kmer)
 enhancers_num=0
@@ -151,11 +147,11 @@ def plot_AUROC(fpr,tpr):
     plt.figure(1, figsize=(8.5,8.5))
     
     plt.plot(fpr,tpr,label = 'Fold'+str(i)+': AUC = '+str('%.3f'%auc[-1]),linewidth = 2)
-    ax=plt.gca();#获得坐标轴的句柄
-    ax.spines['bottom'].set_linewidth(3);###设置底部坐标轴的粗细
-    ax.spines['left'].set_linewidth(3);####设置左边坐标轴的粗细
-    ax.spines['right'].set_linewidth(3);###设置右边坐标轴的粗细
-    ax.spines['top'].set_linewidth(3);####设置上部坐标轴的粗细
+    ax=plt.gca();
+    ax.spines['bottom'].set_linewidth(3);
+    ax.spines['left'].set_linewidth(3);
+    ax.spines['right'].set_linewidth(3);
+    ax.spines['top'].set_linewidth(3);
     plt.tick_params(labelsize=20)
     labels = ax.get_xticklabels() + ax.get_yticklabels()
     [label.set_fontname('arial') for label in labels]
@@ -173,7 +169,7 @@ def plot_AUROC(fpr,tpr):
     'weight' : 'normal',
     'size'   : 30,
     }
-    plt.xlabel(u'False Positive Rate', font2) # 这一段
+    plt.xlabel(u'False Positive Rate', font2)
     plt.ylabel(u'True Positive Rate', font2)
     plt.title('ROC Curve', font2)
     plt.legend(prop = font1)
@@ -184,10 +180,10 @@ def plot_AUPRC(rec,prec):
     
     plt.plot(rec,prec,label = 'Fold'+str(i)+': AUPR = '+str('%.3f'%aupr[-1]),linewidth = 2)
     ax=plt.gca();#获得坐标轴的句柄
-    ax.spines['bottom'].set_linewidth(3);###设置底部坐标轴的粗细
-    ax.spines['left'].set_linewidth(3);####设置左边坐标轴的粗细
-    ax.spines['right'].set_linewidth(3);###设置右边坐标轴的粗细
-    ax.spines['top'].set_linewidth(3);####设置上部坐标轴的粗细
+    ax.spines['bottom'].set_linewidth(3);
+    ax.spines['left'].set_linewidth(3);
+    ax.spines['right'].set_linewidth(3);
+    ax.spines['top'].set_linewidth(3);
     plt.tick_params(labelsize=20)
     labels = ax.get_xticklabels() + ax.get_yticklabels()
     [label.set_fontname('arial') for label in labels]
@@ -206,7 +202,7 @@ def plot_AUPRC(rec,prec):
     'size'   : 30,
     }
     plt.title('Precision/Recall Curve', font2)
-    plt.xlabel(u'Recall', font2) # 这一段
+    plt.xlabel(u'Recall', font2) 
     plt.ylabel(u'Precision', font2)
     plt.legend(prop = font1)
     plt.savefig('AUPRC{}.png'.format(kvalue),dpi = 300)
@@ -219,7 +215,7 @@ for train,test in cv.split(X_train, y_train):
         estimator = CatBoostClassifier(iterations = 1000,depth = 10,learning_rate = 0.1,logging_level = None,scale_pos_weight = 45)
         #estimator = svm.SVC(kernel = 'rbf',C = 10, gamma = 0.012)
         #estimator = lgb.LGBMClassifier(is_unbalance = True, learning_rate = 0.012)
-        estimator.load_model('best_model3')
+        estimator.load_model('{}/{}/best_model3'.format(test_filepath,model_cellline))
 
         y_pred = estimator.predict(X_train[test,:])
         y_proba_pred = estimator.predict_proba(X_train[test,:])[:,1]
