@@ -50,10 +50,10 @@ newprend = newprstart + 1999
 distance = abs(prmid-enmid)
 dis =  '%.4f' % math.log((2000000/distance),10)
 model_filepath = model_file+model_select
-enoldname = enchrome+':'+str(enstart)+'-'+str(enend)
-proldname = prchrome+':'+str(prstart)+'-'+str(prend)
-enname = enchrome+':'+str(newenstart)+'-'+str(newenend)
-prname = prchrome+':'+str(newprstart)+'-'+str(newprend)
+enoldname = cellline+'|'+enchrome+':'+str(enstart)+'-'+str(enend)
+proldname = cellline+'|'+prchrome+':'+str(prstart)+'-'+str(prend)
+enname = cellline+'|'+enchrome+':'+str(newenstart)+'-'+str(newenend)
+prname = cellline+'|'+prchrome+':'+str(newprstart)+'-'+str(newprend)
 
 kmer = 4**kvalue
 
@@ -99,7 +99,6 @@ for n,line in enumerate(fin2):
 	df2.append(data2)
 promoter = df2
 
-
 enhancer_vec = enhancer[0]
 promoter_vec = promoter[0]
 enhancer_vec = enhancer_vec.reshape((1,kmer))
@@ -107,13 +106,8 @@ promoter_vec = promoter_vec.reshape((1,kmer))
 arrays[0] = numpy.column_stack((enhancer_vec,promoter_vec))
 distance[0] = float(dis)
 
-
-
-
-
 X_train = numpy.column_stack((arrays,distance))
 print(X_train.shape[0],X_train.shape[1])
-
 
 
 estimator = CatBoostClassifier(iterations = 1000,depth = 10,learning_rate = 0.1,logging_level = None,scale_pos_weight = 45)
@@ -122,10 +116,10 @@ estimator.load_model('{}/{}/best_model{}'.format(model_filepath,cellline,kvalue)
 y_pred = estimator.predict(X_train)
 y_proba_pred = estimator.predict_proba(X_train)[:,1]
 if enchrome != prchrome:
-    print('The two elements are not in the same chrosome, please recheck your input')
+    print('The two elements are not in the same chrosome, please recheck your input!')
 else:
-    print(enoldname,proldname)
+    print('For Promoter '+enoldname+', Enhancer '+proldname+' in cell line '+ cellline+' :')
     if y_pred[0] == 0:
-        print('The two elements are predicted not to be interacted by EPBoost, the interaction prediction score is %.4f'%y_proba_pred[0])
+        print('The two elements are predicted not to be interacted by EPBoost, the interaction prediction score is %.4f.'%y_proba_pred[0])
     else:
-        print('The two elements are predicted interacted by EPBoost, the interaction prediction score is %.4f'%y_proba_pred[0])
+        print('The two elements are predicted interacted by EPBoost, the interaction prediction score is %.4f.'%y_proba_pred[0])
