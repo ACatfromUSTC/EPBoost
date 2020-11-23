@@ -6,7 +6,7 @@
 ## **Usage** 
 
 ### **FilePath**
-  When using EPBoost, the actual filepaths should be set properly.Take cell line NHEK as an example:<br>
+  When using EPBoost, the actual filepaths should be set properly. Take cell line NHEK as an example:<br>
   > **EPBoost**
   >> **dataset**  
   >>> **EPBoost_Test.py** <br>
