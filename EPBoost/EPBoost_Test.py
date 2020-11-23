@@ -36,11 +36,12 @@ test_file = '/EPBoost/EPBoost/dataset/'
 test_select = 'TargetFinder/'
 model_cellline = str(sys.argv[2])
 cellline = str(sys.argv[3])
-test_filepath = test_file+test_select
-os.system("bedtools getfasta -fi ../hg19.fa -bed {}enhancers.bed -fo {}enhancers.fa".format(test_filepath,test_filepath))
-os.system("bedtools getfasta -fi ../hg19.fa -bed {}promoters.bed -fo {}promoters.fa".format(test_filepath,test_filepath))
-os.system("python3 ../seekr_py/src/kmer_counts.py {}enhancers.fa -o {}enhancers.txt -k {} -nb".format(test_filepath,test_filepath,kvalue))
-os.system("python3 ../seekr_py/src/kmer_counts.py {}promoters.fa -o {}promoters.txt -k {} -nb".format(test_filepath,test_filepath,kvalue))
+test_filepath = test_file+test_select+cellline
+model_filepath = test_file+test_select
+os.system("bedtools getfasta -fi ../hg19.fa -bed {}/enhancers.bed -fo {}/enhancers.fa".format(test_filepath,test_filepath))
+os.system("bedtools getfasta -fi ../hg19.fa -bed {}/promoters.bed -fo {}/promoters.fa".format(test_filepath,test_filepath))
+os.system("python3 ../seekr_py/src/kmer_counts.py {}/enhancers.fa -o {}/enhancers.txt -k {} -nb".format(test_filepath,test_filepath,kvalue))
+os.system("python3 ../seekr_py/src/kmer_counts.py {}/promoters.fa -o {}/promoters.txt -k {} -nb".format(test_filepath,test_filepath,kvalue))
 kmer = 4**kvalue
 print(kmer)
 enhancers_num=0
@@ -67,8 +68,8 @@ for line in fin2:
 
 
 #generate index
-fin3 = open(test_filepath+'{}/train.csv'.format(cellline),'r')
-fout1 = open(test_filepath+'{}/training.txt','w')
+fin3 = open(test_filepath+'/train.csv','r')
+fout1 = open(test_filepath+'/training.txt','w')
 
 
 for line in fin3:
@@ -88,10 +89,10 @@ arrays = numpy.zeros((train_num, kmer*2))
 labels = numpy.zeros(train_num)
 distance = numpy.zeros(train_num)
 
-fin = open(test_filepath+'{}/training.txt','r')
+fin = open(test_filepath+'/training.txt','r')
 
-fin1 = open(test_filepath+'{}/enhancers.txt','r')
-fin2 = open(test_filepath+'{}/promoters.txt','r')
+fin1 = open(test_filepath+'/enhancers.txt','r')
+fin2 = open(test_filepath+'/promoters.txt','r')
 df1=[]
 df2=[]
 
@@ -215,7 +216,7 @@ for train,test in cv.split(X_train, y_train):
         estimator = CatBoostClassifier(iterations = 1000,depth = 10,learning_rate = 0.1,logging_level = None,scale_pos_weight = 45)
         #estimator = svm.SVC(kernel = 'rbf',C = 10, gamma = 0.012)
         #estimator = lgb.LGBMClassifier(is_unbalance = True, learning_rate = 0.012)
-        estimator.load_model('{}{}/best_model3'.format(test_filepath,model_cellline))
+        estimator.load_model('{}{}/best_model3'.format(model_filepath,model_cellline))
 
         y_pred = estimator.predict(X_train[test,:])
         y_proba_pred = estimator.predict_proba(X_train[test,:])[:,1]
