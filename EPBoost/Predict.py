@@ -32,8 +32,8 @@ from scipy.stats import pearsonr
 import matplotlib.pyplot as plt
 
 kvalue = int(sys.argv[1])
-test_file = '/EPBoost/EPBoost/dataset/'
-test_select = 'TargetFinder/'
+model_file = '/EPBoost/EPBoost/dataset/'
+model_select = 'TargetFinder/'
 cellline = str(sys.argv[2])
 enchrome = str(sys.argv[3])
 enstart = str(sys.argv[4])
@@ -41,64 +41,46 @@ enend = str(sys.argv[5])
 prchrome = str(sys.argv[6])
 prstart = str(sys.argv[7])
 prend = str(sys.argv[8])
-test_filepath = test_file+test_select+cellline
-enname = enchrome+':'+enstart+'-'+enend
-prname = prchrome+':'+prstart+'-'+prend
+enmid =  (int(enstart)+int(enend))//2
+newenstart = enmid - 1500
+newenend = newenstart + 2999
+prmid = (int(prstart)+int(prend))//2
+newprstart = prmid-1000
+newprend = newenstart + 1999
+distance = abs(prend - enmid)
+dis =  '%.4f' % math.log((2000000/distance),10)
+model_filepath = model_file+model_select+cellline
+enname = enchrome+':'+str(newenstart)+'-'+str(newenend)
+prname = prchrome+':'+str(newprstart)+'-'+str(newprend)
+
+kmer = 4**kvalue
+
+train_num = 1
+
+
+
+fin1 = open('enhancer.bed','w')
+fin2 = open('promoter.bed','w')
+fin1.write(enchrome+'\t'+str(newenstart)+'\t'+str(newenend)+'\t'+enname+'\n')
+fin2.write(prchrome+'\t'+str(newprstart)+'\t'+str(newprend)+'\t'+prname+'\n')
+fin1.close()
+fin2.close()
+
 os.system("bedtools getfasta -fi ../hg19.fa -bed enhancer.bed -fo enhancer.fa")
 os.system("bedtools getfasta -fi ../hg19.fa -bed promoter.bed -fo promoter.fa")
 os.system("python3 ../seekr_py/src/kmer_counts.py enhancer.fa -o enhancer.txt -k {} -nb")
 os.system("python3 ../seekr_py/src/kmer_counts.py promoter.fa -o promoter.txt -k {} -nb")
-kmer = 4**kvalue
-print(kmer)
-enhancers_num=0
-promoters_num=0
-positive_num=0
-negative_num=0
-train_num = 0
-test_num = 0
 
 
-
-fin1 = open(test_filepath+'enhancers.bed','r')
-fin2 = open(test_filepath+'promoters.bed','r')
-enhancers = []
-promoters = []
-for line in fin1:
-	data = line.strip().split()
-	enhancers.append(data[3])
-	enhancers_num = enhancers_num + 1
-for line in fin2:
-	data = line.strip().split()
-	promoters.append(data[3])
-	promoters_num = promoters_num + 1
-
-
-#generate index
-fin3 = open(test_filepath+'{}/train.csv'.format(cellline),'r')
-fout1 = open(test_filepath+'{}/training.txt','w')
-
-
-for line in fin3:
-	if line[0] == 'b':
-		continue
-	else:
-		data = line.strip().split(',')
-		enhancer_index = enhancers.index(data[5])
-		promoter_index = promoters.index(data[9])
-		fout1.write(str(enhancer_index)+'\t'+str(promoter_index)+'\t'+data[10]+'\t'+data[11]+'\n')
-		train_num = train_num + 1
-fout1.close()
-print(train_num)
 
 #generate data matrix
 arrays = numpy.zeros((train_num, kmer*2))
 labels = numpy.zeros(train_num)
 distance = numpy.zeros(train_num)
 
-fin = open(test_filepath+'{}/training.txt','r')
 
-fin1 = open(test_filepath+'{}/enhancers.txt','r')
-fin2 = open(test_filepath+'{}/promoters.txt','r')
+fin1 = open('enhancer.txt','r')
+fin2 = open('promoter.txt','r')
 df1=[]
 df2=[]
 
@@ -115,30 +97,24 @@ for n,line in enumerate(fin2):
 promoter = df2
 
 
+enhancer_vec = enhancer[int(data[0])]
+promoter_vec = promoter[int(data[1])]
+enhancer_vec = enhancer_vec.reshape((1,kmer))
+promoter_vec = promoter_vec.reshape((1,kmer))
+arrays[0] = numpy.column_stack((enhancer_vec,promoter_vec))
+distance[0] = float(dis)
 
-
-
-for i,line in enumerate(fin):
-	data = line.strip().split()
-	enhancer_vec = enhancer[int(data[0])]
-	promoter_vec = promoter[int(data[1])]
-	enhancer_vec = enhancer_vec.reshape((1,kmer))
-	promoter_vec = promoter_vec.reshape((1,kmer))
-	arrays[i] = numpy.column_stack((enhancer_vec,promoter_vec))
-	distance[i] = float(data[3])
-	labels[i] = int(data[2])
 
 
 
 
 X_train = numpy.column_stack((arrays,distance))
 print(X_train.shape[0])
-y_train = labels
-print(numpy.sum(y_train))
+
 
 
 estimator = CatBoostClassifier(iterations = 1000,depth = 10,learning_rate = 0.1,logging_level = None,scale_pos_weight = 45)
-estimator.load_model('{}{}/best_model3'.format(test_filepath,model_cellline))
+estimator.load_model('{}/best_model3'.format(model_filepath))
 
 y_pred = estimator.predict(X_train[test,:])
 y_proba_pred = estimator.predict_proba(X_train[test,:])[:,1]
