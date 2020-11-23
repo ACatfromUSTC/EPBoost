@@ -7,16 +7,16 @@
 
 ### **FilePath**
   Take cell line GM12878 as an example:<br>
-  > EPBoost
-  >> dataset  
-  >>> EPBoost_Test.py <br>
-  >>> Predict.py <br>
-  >>> DeepTACT
-  >>> Targetfinder <br>
-  >>>> GM12878
-  >>>>> DataPrepare.py <br>
-  >>>>> EPBoost_Train.py <br>
-  >>>>> EPBoost2_Train.py <br>  
+  > **EPBoost**
+  >> **dataset**  
+  >>> **EPBoost_Test.py** <br>
+  >>> **Predict.py** <br>
+  >>> **DeepTACT** <br>
+  >>> **Targetfinder** <br>
+  >>>> **GM12878**
+  >>>>> **DataPrepare.py** <br>
+  >>>>> **EPBoost_Train.py** <br>
+  >>>>> **EPBoost2_Train.py** <br>  
       
   
 ### **Training**
