@@ -33,9 +33,8 @@
 #### **Note** <br>
    In  processes counting and normalizing the kmer contents, we basically adapted the code in ***seer_py*** which is originally from https://github.com/CalabreseLab/seekr.
    We use hg19.fa file as a reference genome which can be downloaded by <br>
-   `$ wget http://hgdownload.cse.ucsc.edu/goldenPath/hg19/bigZips/chromFa.tar.gz`<br>
-   `$ tar zxvf chromFa.tar.gz`<br>
-   `$ cat chr*.fa > hg19.fa`<br>
+   `$ wget http://hgdownload.cse.ucsc.edu/goldenPath/hg19/bigZips/hg19.fa.gz`<br>
+   `$ gzip -d hg19.fa.gz`<br>
 
 ### **Test**
 * `python EPBoost_Test.py k model_cell_line test_cell_line`<br>
