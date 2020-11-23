@@ -45,6 +45,8 @@
    This is the predicting program, the _k_ determines the length of the kmer which can be ranged from 3 to 7 (here we provide a model with ), the _cell_line_ defines the trained model we use for predicting, the _enchrome_, _enstart_, _enend_, _prchrome_, _prstart_, _prend_ refer to the locations of the enhancer and promoter we would like to make a prediction, respectively.
 #### **Example**
 * `$ python3 Predict.py 3 NHEK chr1 3399800 3400600 chr1 3541200 3542000` <br>
+**Output:** Enhancer chr1:3399800-3400600,Promoter chr1:3541200-3542000 in cellline NHEK <br> 
+The two elements are interacted, the interaction prediction score is 0.9976**
 
 ## **Requirements**
 * Python (run on 3.6.8)
