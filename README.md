@@ -46,12 +46,12 @@
 #### **Example**
 * `$ python3 Predict.py 3 NHEK chr1 3399800 3400600 chr1 3541200 3542000` <br>
 **Output:** For Promoter NHEK|chr1:3399800-3400600, Enhancer NHEK|chr1:3541200-3542000 in cell line NHEK :
-The two elements are predicted interacted by EPBoost, the interaction prediction score is 0.99766.**
+The two elements are predicted interacted by EPBoost, the interaction prediction score is 0.99766.
 * `$ python3 Predict.py 3 NHEK chr1 10000000 10001000 chr1 10004000 10005000` <br>
 **Output:** For Promoter NHEK|chr1:10000000-10001000, Enhancer NHEK|chr1:10004000-10005000 in cell line NHEK :
 The two elements are predicted not to be interacted by EPBoost, the interaction prediction score is 0.0001.
 * `$ python3 Predict.py 3 NHEK chr1 10000000 10001000 chr2 10004000 10005000` <br>
-**Output:** The two elements are not in the same chrosome, please recheck your input!**
+**Output:** The two elements are not in the same chrosome, please recheck your input!
 
 ## **Requirements**
 * Python (run on 3.6.8)
