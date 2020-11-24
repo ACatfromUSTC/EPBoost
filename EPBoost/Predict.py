@@ -33,8 +33,14 @@ import matplotlib.pyplot as plt
 
 kvalue = int(sys.argv[1])
 model_file = '/EPBoost/dataset/'
-model_select = 'Targetfinder/'
+#model_select = 'Targetfinder/'
 cellline = str(sys.argv[2])
+if cellline in ['GM12878','HUVEC','HeLa-S3','IMR90','K562','NHEK']:
+    model_select = 'Targetfinder/'
+elif cellline in ['FoeT','Mon','nCD4','tB','tCD4','tCD8']:
+    model_select = 'DeepTACT/'
+else:
+    print('The model of the input cell line hasnot prepared yet, you can choose a similar cell line to make a prediction.')
 enchrome = str(sys.argv[3])
 enstart = str(sys.argv[4])
 enend = str(sys.argv[5])
