@@ -13,8 +13,8 @@ fout2 = open('promoters.bed','w',newline = '')
 fout.write('bin'+','+'enhancer_chrom'+','+'enhancer_start'+','+'enhancer_end'+','+'enhancer_name'+','+
            'promoter_chrom'+','+'promoter_start'+','+'promoter_end'+','+'promoter_name'+','+'label'+','+'distance'+'\n')
 
-
-cellline = 'immune'
+#can be 'GM12878','HUVEC','HeLa-S3','IMR90','K562','NHEK','FoeT','Mon','nCD4','tB','tCD4','tCD8'
+cellline = 'NHEK'
 
 
 enhancers = []
