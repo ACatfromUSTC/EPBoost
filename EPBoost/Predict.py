@@ -41,6 +41,7 @@ elif cellline in ['FoeT','Mon','nCD4','tB','tCD4','tCD8']:
     model_select = 'DeepTACT/'
 else:
     print('The model of the input cell line hasnot prepared yet, you can choose a similar cell line to make a prediction.')
+    break
 enchrome = str(sys.argv[3])
 enstart = str(sys.argv[4])
 enend = str(sys.argv[5])
