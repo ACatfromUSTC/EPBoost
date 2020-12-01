@@ -6,10 +6,12 @@ Created on Tue Dec 3 23:15:03 2019
 """
 
 import math
-fin = open('pairs.csv','r')
-fout = open('train.csv','w')
-fout1 = open('enhancers.bed','w',newline = '')
-fout2 = open('promoters.bed','w',newline = '')
+cmd = '/EPBoost/EPBoost/dataset/TargetFinder/'
+cellline = 'NHEK/'
+fin = open(cmd+cellline+'pairs.csv','r')
+fout = open(cmd+cellline+'train.csv','w')
+fout1 = open(cmd+cellline+'enhancers.bed','w',newline = '')
+fout2 = open(cmd+cellline+'promoters.bed','w',newline = '')
 fout.write('bin'+','+'enhancer_chrom'+','+'enhancer_start'+','+'enhancer_end'+','+'enhancer_name'+','+
            'promoter_chrom'+','+'promoter_start'+','+'promoter_end'+','+'promoter_name'+','+'label'+','+'distance'+'\n')
 
