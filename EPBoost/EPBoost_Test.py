@@ -77,6 +77,12 @@ for line in fin3:
 		continue
 	else:
 		data = line.strip().split(',')
+		
+		#if the cell line belongs to DeepTACT
+		'''enhancer_index = enhancers.index(data[4])
+		promoter_index = promoters.index(data[8])
+		fout1.write(str(enhancer_index)+'\t'+str(promoter_index)+'\t'+data[9]+'\t'+data[10]+'\n')'''
+		#if the cellline belongs to TargetFinder
 		enhancer_index = enhancers.index(data[5])
 		promoter_index = promoters.index(data[9])
 		fout1.write(str(enhancer_index)+'\t'+str(promoter_index)+'\t'+data[10]+'\t'+data[11]+'\n')
