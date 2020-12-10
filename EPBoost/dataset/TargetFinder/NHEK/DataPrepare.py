@@ -40,33 +40,30 @@ def generpr(chrom,start,newstart,label):
         
 
 for line in fin:
-    if line[0] == 'e':
+    if line[0] == 'b':
         continue
     else:
         data  = line.strip().split(',')
-        label = data[8]
-        #distancebin = data[0]+','+data[1].strip()
-        corr = '1'
-        mid1 = int((int(data[1])+int(data[2]))/2)
-        mid2 = int((int(data[5])+int(data[6]))/2)
-        distance = int(abs(mid1-mid2))
+        label = data[7]
+        distancebin = data[0]+','+data[1].strip()
+        distance = int(data[3])
         logdis = '%.4f' % math.log((2000000/distance),10)
         #enhancer sequnce information
-        en_chrom = data[0]
-        en_start = int(data[1])
-        en_end   = int(data[2])
+        en_chrom = data[2]
+        en_start = int(data[6])
+        en_end   = int(data[4])
         en_len = en_end - en_start
         en_mid   = math.ceil(int((en_start+en_end)/2))
-        en_newend = en_mid+1499
+        en_newend = en_mid+1500
         en_newstart = en_mid-1500 
         
         #promoter sequence information
-        pr_chrom = data[4]
-        pr_start = int(data[5])
-        pr_end   = int(data[6])
+        pr_chrom = data[8]
+        pr_start = int(data[11])
+        pr_end   = int(data[9])
         pr_len = pr_end - pr_start
         pr_mid = math.ceil(int((pr_start+pr_end)/2))
-        pr_newend = pr_mid+999
+        pr_newend = pr_mid+1000
         pr_newstart = pr_mid-1000
         
         #generate new enhancers
@@ -81,7 +78,7 @@ for line in fin:
             for item2 in pr:
                 data2 = item2.split(':')
                 data22 = data2[1].split('-')
-                fout.write(corr+','+en_chrom+','+str(data11[0])+','+str(data11[1])+','+cellline+'|'+item1+','+pr_chrom+','+str(data22[0])+','+str(data22[1])+','+cellline+'|'+item2+','+label+','+str(logdis)+'\n')
+                fout.write(distancebin+','+en_chrom+','+str(data11[0])+','+str(data11[1])+','+cellline+'|'+item1+','+pr_chrom+','+str(data22[0])+','+str(data22[1])+','+cellline+'|'+item2+','+label+','+str(logdis)+'\n')
 
 
         #generate beds
