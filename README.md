@@ -60,6 +60,7 @@ The two elements are predicted not to be interacted by EPBoost, the interaction 
 * bedtools (run on 2.28.0)
 * catboost (run on 0.20)
 * matplotlib (run on 3.1.2)
+* tqdm (run on 4.38.0)
 
 ## **License**
   EPBoost is licensed under the MIT License - details can be found in the LICENSE.md file
