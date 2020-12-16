@@ -31,10 +31,23 @@ from scipy.stats import pearsonr
 import matplotlib.pyplot as plt
 
 kvalue = int(sys.argv[1])
-#os.system("bedtools getfasta -fi hg19/hg19.fa -bed enhancers.bed -fo enhancers.fa")
-#os.system("bedtools getfasta -fi hg19/hg19.fa -bed promoters.bed -fo promoters.fa")
-#os.system("python3 seekr_py/src/kmer_counts.py enhancers.fa -o enhancers.txt -k {} -nb".format(kvalue))
-#os.system("python3 seekr_py/src/kmer_counts.py promoters.fa -o promoters.txt -k {} -nb".format(kvalue))
+names = ['GM12878','HUVEC','HeLa-S3','IMR90','K562','NHEK','FoeT','Mon','nCD4','tB','tCD4','tCD8']
+#cmd = '/EPBoost/EPBoost/dataset/TargetFinder/' # or '/EPBoost/EPBoost/dataset/DeepTACT/'
+
+#can be 'GM12878','HUVEC','HeLa-S3','IMR90','K562','NHEK','FoeT','Mon','nCD4','tB','tCD4','tCD8'
+cellline = sys.argv[2]
+cellline_dir = cellline+'/'
+if cellline in names[:6]:
+    cmd = 'dataset/TargetFinder/'
+elif cellline in names[6:]:
+    cmd = 'dataset/DeepTACT/'
+else:
+    print('Please recheck your input!')
+    sys.exix(0)
+os.system("bedtools getfasta -fi /bio_data/wangzihang/epnet/hg19.fa -bed {}enhancers.bed -fo {}enhancers.fa".format(cmd+cellline_dir,cmd+cellline_dir))
+os.system("bedtools getfasta -fi /bio_data/wangzihang/epnet/hg19.fa -bed {}promoters.bed -fo {}promoters.fa".format(cmd+cellline_dir,cmd+cellline_dir))
+os.system("python3 seekr_py/src/kmer_counts.py {}enhancers.fa -o {}enhancers.txt -k {} -nb".format(cmd+cellline_dir,cmd+cellline_dir,kvalue))
+os.system("python3 seekr_py/src/kmer_counts.py {}promoters.fa -o {}promoters.txt -k {} -nb".format(cmd+cellline_dir,cmd+cellline_dir,kvalue))
 kmer = 4**kvalue
 print(kmer)
 enhancers_num=0
@@ -45,9 +58,8 @@ train_num = 0
 test_num = 0
 
 
-
-fin1 = open('enhancers.bed','r')
-fin2 = open('promoters.bed','r')
+fin1 = open(cmd+cellline_dir+'enhancers.bed','r')
+fin2 = open(cmd+cellline_dir+'promoters.bed','r')
 enhancers = []
 promoters = []
 for line in fin1:
@@ -61,8 +73,8 @@ for line in fin2:
 
 
 #generate index
-fin3 = open('train.csv','r')
-fout1 = open('training.txt','w')
+fin3 = open(cmd+cellline_dir+'train.csv','r')
+fout1 = open(cmd+cellline_dir+'training.txt','w')
 
 
 for line in fin3:
@@ -88,10 +100,10 @@ arrays = numpy.zeros((train_num, kmer*2))
 labels = numpy.zeros(train_num)
 distance = numpy.zeros(train_num)
 
-fin = open('training.txt','r')
+fin = open(cmd+cellline_dir+'training.txt','r')
 
-fin1 = open('enhancers.txt','r')
-fin2 = open('promoters.txt','r')
+fin1 = open(cmd+cellline_dir+'enhancers.txt','r')
+fin2 = open(cmd+cellline_dir+'promoters.txt','r')
 df1=[]
 df2=[]
 
@@ -173,7 +185,7 @@ def plot_AUROC(fpr,tpr):
     plt.ylabel(u'True Positive Rate', font2)
     plt.title('ROC Curve', font2)
     plt.legend(prop = font1)
-    plt.savefig('AUROC{}.png'.format(kvalue),dpi = 300)
+    plt.savefig(cmd+cellline_dir+'AUROC{}.png'.format(kvalue),dpi = 300)
 
 def plot_AUPRC(rec,prec):
     plt.figure(2, figsize=(8.5,8.5))
@@ -205,7 +217,7 @@ def plot_AUPRC(rec,prec):
     plt.xlabel(u'Recall', font2) 
     plt.ylabel(u'Precision', font2)
     plt.legend(prop = font1)
-    plt.savefig('AUPRC{}.png'.format(kvalue),dpi = 300)
+    plt.savefig(cmd+cellline_dir+'AUPRC{}.png'.format(kvalue),dpi = 300)
 
 max_num = 0
 
@@ -244,7 +256,7 @@ for train,test in cv.split(X_train, y_train):
         aupr.append(metrics.average_precision_score(y_train[test],y_proba_pred))
         if metrics.average_precision_score(y_train[test],y_proba_pred) > max_num:
             max_num = metrics.average_precision_score(y_train[test],y_proba_pred)
-            model.save_model('best_model{}'.format(kvalue))
+            model.save_model(cmd+cellline_dir+'best_model{}'.format(kvalue))
         prec, rec, thres = metrics.precision_recall_curve(y_train[test],y_proba_pred ,pos_label=1)
         auprc.append(metrics.auc(rec, prec))
 
