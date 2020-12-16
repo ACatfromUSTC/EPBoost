@@ -44,8 +44,8 @@ elif cellline in names[6:]:
 else:
     print('Please recheck your input!')
     sys.exix(0)
-os.system("bedtools getfasta -fi /bio_data/wangzihang/epnet/hg19.fa -bed {}enhancers.bed -fo {}enhancers.fa".format(cmd+cellline_dir,cmd+cellline_dir))
-os.system("bedtools getfasta -fi /bio_data/wangzihang/epnet/hg19.fa -bed {}promoters.bed -fo {}promoters.fa".format(cmd+cellline_dir,cmd+cellline_dir))
+os.system("bedtools getfasta -fi hg19/hg19.fa -bed {}enhancers.bed -fo {}enhancers.fa".format(cmd+cellline_dir,cmd+cellline_dir))
+os.system("bedtools getfasta -fi hg19/hg19.fa -bed {}promoters.bed -fo {}promoters.fa".format(cmd+cellline_dir,cmd+cellline_dir))
 os.system("python3 seekr_py/src/kmer_counts.py {}enhancers.fa -o {}enhancers.txt -k {} -nb".format(cmd+cellline_dir,cmd+cellline_dir,kvalue))
 os.system("python3 seekr_py/src/kmer_counts.py {}promoters.fa -o {}promoters.txt -k {} -nb".format(cmd+cellline_dir,cmd+cellline_dir,kvalue))
 kmer = 4**kvalue
