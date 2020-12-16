@@ -76,10 +76,10 @@ for i in range(2): #In order to be suitable for using SEEKR.
 fin1.close()
 fin2.close()
 
-os.system("bedtools getfasta -fi ../hg19.fa -bed enhancer.bed -fo enhancer.fa")
-os.system("bedtools getfasta -fi ../hg19.fa -bed promoter.bed -fo promoter.fa")
-os.system("python3 ../seekr_py/src/kmer_counts.py enhancer.fa -o enhancer.txt -k {} -nb".format(kvalue))
-os.system("python3 ../seekr_py/src/kmer_counts.py promoter.fa -o promoter.txt -k {} -nb".format(kvalue))
+os.system("bedtools getfasta -fi hg19/hg19.fa -bed enhancer.bed -fo enhancer.fa")
+os.system("bedtools getfasta -fi hg19/hg19.fa -bed promoter.bed -fo promoter.fa")
+os.system("python3 seekr_py/src/kmer_counts.py enhancer.fa -o enhancer.txt -k {} -nb".format(kvalue))
+os.system("python3 seekr_py/src/kmer_counts.py promoter.fa -o promoter.txt -k {} -nb".format(kvalue))
 
 
 
