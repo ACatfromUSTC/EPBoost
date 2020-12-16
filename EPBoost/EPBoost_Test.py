@@ -31,17 +31,33 @@ import pandas as pd
 from scipy.stats import pearsonr
 import matplotlib.pyplot as plt
 
+names = ['GM12878','HUVEC','HeLa-S3','IMR90','K562','NHEK','FoeT','Mon','nCD4','tB','tCD4','tCD8']
 kvalue = int(sys.argv[1])
-test_file = '/EPBoost/EPBoost/dataset/'
+test_file = 'dataset/'
 test_select = 'TargetFinder/'
 model_cellline = str(sys.argv[2])
 cellline = str(sys.argv[3])
+if cellline in names[:6]:
+    test_select = 'TargetFinder/'
+elif cellline in names[6:]:
+    test_select = 'DeepTACT/'
+else:
+    print('Please recheck your input!')
+    sys.exit(0)
+
+if model_cellline in names[:6]:
+    model_select = 'TargetFinder/'
+elif model_cellline in names[6:]:
+    model_select = 'DeepTACT/'
+else:
+    print('Please recheck your input!')
+    sys.exit(0)
 test_filepath = test_file+test_select+cellline
-model_filepath = test_file+test_select
-os.system("bedtools getfasta -fi ../hg19.fa -bed {}/enhancers.bed -fo {}/enhancers.fa".format(test_filepath,test_filepath))
-os.system("bedtools getfasta -fi ../hg19.fa -bed {}/promoters.bed -fo {}/promoters.fa".format(test_filepath,test_filepath))
-os.system("python3 ../seekr_py/src/kmer_counts.py {}/enhancers.fa -o {}/enhancers.txt -k {} -nb".format(test_filepath,test_filepath,kvalue))
-os.system("python3 ../seekr_py/src/kmer_counts.py {}/promoters.fa -o {}/promoters.txt -k {} -nb".format(test_filepath,test_filepath,kvalue))
+model_filepath = test_file+model_select
+os.system("bedtools getfasta -fi hg19/hg19.fa -bed {}/enhancers.bed -fo {}/enhancers.fa".format(test_filepath,test_filepath))
+os.system("bedtools getfasta -fi hg19/hg19.fa -bed {}/promoters.bed -fo {}/promoters.fa".format(test_filepath,test_filepath))
+os.system("python3 seekr_py/src/kmer_counts.py {}/enhancers.fa -o {}/enhancers.txt -k {} -nb".format(test_filepath,test_filepath,kvalue))
+os.system("python3 seekr_py/src/kmer_counts.py {}/promoters.fa -o {}/promoters.txt -k {} -nb".format(test_filepath,test_filepath,kvalue))
 kmer = 4**kvalue
 print(kmer)
 enhancers_num=0
@@ -53,8 +69,8 @@ test_num = 0
 
 
 
-fin1 = open(test_filepath+'enhancers.bed','r')
-fin2 = open(test_filepath+'promoters.bed','r')
+fin1 = open(test_filepath+'/enhancers.bed','r')
+fin2 = open(test_filepath+'/promoters.bed','r')
 enhancers = []
 promoters = []
 for line in fin1:
@@ -258,3 +274,4 @@ print ('recall:',numpy.mean(recall),numpy.std(recall))
 print ('precision',numpy.mean(precision),numpy.std(precision))
 print ('f1',numpy.mean(f1),numpy.std(f1))
 print ('mcc:',numpy.mean(mcc),numpy.std(mcc))
+
