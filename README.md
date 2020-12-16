@@ -21,13 +21,13 @@
   
 ### **Training**
 #### **STEP1** <br>
-* `$ python DataPrepare.py`<br>
-   In this process we will pad input enhancers into *3000bp long* and promoters into *2000bp long*:<br>
+* `$ python DataPrepare.py cell_line`<br>
+   In this process we will pad input enhancers into *3000bp long* and promoters into *2000bp long* , the _cell_line_ refers to the name of the cell line:<br>
    only **one** file is needed: ***dataset/TargetFinder(or DeepTACT)/celllinename/pairs.csv***<br>
    and **three** files will be produced: ***enhancers.bed***,   ***promoters.bed***,   ***train.csv***<br>
 #### **STEP2** <br>
-* `$ python EPBoost_Train.py k`<br>
-   This is the training program, a 10-fold validation is also included. The _k_ determines the length of the kmer which can be ranged from 3 to 7, the imbalance ratio in training set and test set are both 1:20. In the process, profiles of _enhancers.bed_, _promoters.bed_, _train.csv_ are needed and _enhancers.fa_, _promoters.fa_, _enhancers.txt_, _promoters.txt_, _training.txt_ are intermediate processing files. At last, a best_model will be generated and saved.
+* `$ python EPBoost_Train.py k cell_line`<br>
+   This is the training program, a 10-fold validation is also included. The _k_ determines the length of the kmer which can be ranged from 3 to 7, the _cell_line_ refers to the name of the cell linethe imbalance ratio in training set and test set are both 1:20. In the process, profiles of _enhancers.bed_, _promoters.bed_, _train.csv_ are needed and _enhancers.fa_, _promoters.fa_, _enhancers.txt_, _promoters.txt_, _training.txt_ are intermediate processing files. At last, a best_model will be generated and saved.
 * `$ python EPBoost2_Train.py k`<br>
    This is the training program to compare with DeepTACT, a 10-fold validation is also included. The _k_ determines the length of the kmer which can be ranged from 3 to 7, the imbalance ratio in training set is 1:20 and in test set is 1:5. In the process, profiles of _enhancers.bed_, _promoters.bed_, _train.csv_ are needed and _enhancers.fa_, _promoters.fa_, _enhancers.txt_, _promoters.txt_, _training.txt_ are intermediate processing files. At last, a best_model will be generated and saved.
 #### **Note** <br>
