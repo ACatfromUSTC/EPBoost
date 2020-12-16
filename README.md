@@ -7,15 +7,16 @@
 
 ### **FilePath**
   When using EPBoost, the actual filepaths should be set properly. Take cell line NHEK as an example:<br>
-  > **EPBoost**
-  >> **dataset** 
-  >>> **TargetFinder** <br>
-  >>> **DeepTACT** <br>
+  > **EPBoost** <br>
   >> **EPBoost_Test.py** <br>
   >> **Predict.py** <br>
   >> **DataPrepare.py** <br>
   >> **EPBoost_Train.py** <br>
   >> **EPBoost2_Train.py** <br>  
+  >> **dataset** <br>
+  >>> **DeepTACT** <br>
+  >>> **TargetFinder** <br>
+  >>>> **NHEK** <br>
       
   
 ### **Training**
