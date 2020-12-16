@@ -5,13 +5,21 @@ Created on Tue Dec 3 23:15:03 2019
 @author: Wangzihang
 """
 
+import sys
 import math
 names = ['GM12878','HUVEC','HeLa-S3','IMR90','K562','NHEK','FoeT','Mon','nCD4','tB','tCD4','tCD8']
-cmd = '/EPBoost/EPBoost/dataset/TargetFinder/' # or '/EPBoost/EPBoost/dataset/DeepTACT/'
+#cmd = '/EPBoost/EPBoost/dataset/TargetFinder/' # or '/EPBoost/EPBoost/dataset/DeepTACT/'
 
 #can be 'GM12878','HUVEC','HeLa-S3','IMR90','K562','NHEK','FoeT','Mon','nCD4','tB','tCD4','tCD8'
-cellline = names[5]
-cellline_dir = names[5]+'/'
+cellline = sys.argv[1]
+cellline_dir = cellline+'/'
+if cellline in names[:6]:
+    cmd = 'dataset/TargetFinder/'
+elif cellline in names[6:]:
+    cmd = 'dataset/DeepTACT/'
+else:
+    print('Please recheck your input!')
+    sys.exix(0)
 fin = open(cmd+cellline_dir+'pairs.csv','r')
 fout = open(cmd+cellline_dir+'train.csv','w')
 fout1 = open(cmd+cellline_dir+'enhancers.bed','w',newline = '')
