@@ -17,7 +17,7 @@ import numpy,random,math
 from sklearn.model_selection import StratifiedKFold, cross_val_score
 from sklearn.ensemble import GradientBoostingClassifier
 from sklearn.tree import DecisionTreeClassifier
-from imblearn.ensemble import BalanceCascade
+
 
 
 #EPBoost
@@ -36,7 +36,7 @@ model_file = 'dataset/'
 #model_select = 'TargetFinder/'
 cellline = str(sys.argv[2])
 if cellline in ['GM12878','HUVEC','HeLa-S3','IMR90','K562','NHEK']:
-    model_select = 'Targetfinder/'
+    model_select = 'TargetFinder/'
 elif cellline in ['FoeT','Mon','nCD4','tB','tCD4','tCD8']:
     model_select = 'DeepTACT/'
 else:
@@ -118,7 +118,7 @@ print(X_train.shape[0],X_train.shape[1])
 
 
 estimator = CatBoostClassifier(iterations = 1000,depth = 10,learning_rate = 0.1,logging_level = None,scale_pos_weight = 45)
-estimator.load_model('{}/{}/best_model{}'.format(model_filepath,cellline,kvalue))
+estimator.load_model('{}{}/best_model{}'.format(model_filepath,cellline,kvalue))
 
 y_pred = estimator.predict(X_train)
 y_proba_pred = estimator.predict_proba(X_train)[:,1]
