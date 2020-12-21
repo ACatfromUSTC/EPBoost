@@ -16,7 +16,7 @@ import numpy,random,math
 from sklearn.model_selection import StratifiedKFold, cross_val_score
 from sklearn.ensemble import GradientBoostingClassifier
 from sklearn.tree import DecisionTreeClassifier
-from imblearn.ensemble import BalanceCascade
+
 
 
 #EPBoost
