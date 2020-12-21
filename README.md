@@ -25,11 +25,15 @@
    In this process we will pad input enhancers into *3000bp long* and promoters into *2000bp long* , the _cell_line_ refers to the name of the cell line:<br>
    only **one** file is needed: ***dataset/TargetFinder(or DeepTACT)/celllinename/pairs.csv***<br>
    and **three** files will be produced: ***enhancers.bed***,   ***promoters.bed***,   ***train.csv***<br>
+##### **Example**
+* `$ python Dataprepare.py NHEK` <br>
 #### **STEP2** <br>
 * `$ python EPBoost_Train.py k cell_line`<br>
    This is the training program, a 10-fold validation is also included. The _k_ determines the length of the kmer which can be ranged from 3 to 7, the _cell_line_ refers to the name of the cell line, the imbalance ratio in training set and test set are both 1:20. In the process, profiles of _enhancers.bed_, _promoters.bed_, _train.csv_ are needed and _enhancers.fa_, _promoters.fa_, _enhancers.txt_, _promoters.txt_, _training.txt_ are intermediate processing files. At last, a best_model will be generated and saved.
 * `$ python EPBoost2_Train.py k cell_line`<br>
    This is the training program to compare with DeepTACT, a 10-fold validation is also included. The _k_ determines the length of the kmer which can be ranged from 3 to 7,  the _cell_line_ refers to the name of the cell line, the imbalance ratio in training set is 1:20 and in test set is 1:5. In the process, profiles of _enhancers.bed_, _promoters.bed_, _train.csv_ are needed and _enhancers.fa_, _promoters.fa_, _enhancers.txt_, _promoters.txt_, _training.txt_ are intermediate processing files. At last, a best_model will be generated and saved.
+##### **Example**
+* `$ python EPBoost_Train.py 3 NHEK` <br>
 #### **Note** <br>
    In  processes counting and normalizing the kmer contents, we basically adapted the code in ***seer_py*** which is originally from https://github.com/CalabreseLab/seekr.
    We use hg19.fa file as a reference genome which can be downloaded by <br>
@@ -39,7 +43,8 @@
 ### **Test**
 * `$ python EPBoost_Test.py k model_cell_line test_cell_line`<br>
    This is the test program, the _k_ determines the length of the kmer which can be ranged from 3 to 7, the _model_cell_line_ defines the trained model we use for predicting, the _test_cell_line_ refers to the cell line we would like to make a prediction. eg:`$ python EPBoost_Test.py 3 GM12878 NHEK`
-
+##### **Example**
+* `$ python EPBoost_Test.py 3 NHEK GM12878` <br>
 ### **Predict**
 * `$ python Predict.py k cell_line enchrome enstart enend prchrome prstart prend`<br>
    This is the predicting program, the _k_ determines the length of the kmer which can be ranged from 3 to 7 (here we provide a model setting k at 3), the _cell_line_ defines the trained model we use for predicting, the _enchrome_, _enstart_, _enend_, _prchrome_, _prstart_, _prend_ refer to the locations of the enhancer and promoter we would like to make a prediction, respectively.
