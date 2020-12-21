@@ -21,7 +21,7 @@
   
 ### **Training**
 #### **STEP1** <br>
-* `$ python DataPrepare.py cell_line`<br>
+* `$ python Dataprepare.py cell_line`<br>
    In this process we will pad input enhancers into *3000bp long* and promoters into *2000bp long* , the _cell_line_ refers to the name of the cell line:<br>
    only **one** file is needed: ***dataset/TargetFinder(or DeepTACT)/celllinename/pairs.csv***<br>
    and **three** files will be produced: ***enhancers.bed***,   ***promoters.bed***,   ***train.csv***<br>
@@ -38,7 +38,7 @@
 
 ### **Test**
 * `$ python EPBoost_Test.py k model_cell_line test_cell_line`<br>
-   This is the test program, the _k_ determines the length of the kmer which can be ranged from 3 to 7, the _model_cell_line_ defines the trained model we use for predicting, the _test_cell_line_ refers to the cell line we would like to make a prediction.
+   This is the test program, the _k_ determines the length of the kmer which can be ranged from 3 to 7, the _model_cell_line_ defines the trained model we use for predicting, the _test_cell_line_ refers to the cell line we would like to make a prediction. eg:`$ python EPBoost_Test.py 3 GM12878 NHEK`
 
 ### **Predict**
 * `$ python Predict.py k cell_line enchrome enstart enend prchrome prstart prend`<br>
