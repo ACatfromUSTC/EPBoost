@@ -19,7 +19,7 @@ elif cellline in names[6:]:
     cmd = 'dataset/DeepTACT/'
 else:
     print('Please recheck your input!')
-    sys.exix(0)
+    sys.exit(0)
 fin = open(cmd+cellline_dir+'pairs.csv','r')
 fout = open(cmd+cellline_dir+'train.csv','w')
 fout1 = open(cmd+cellline_dir+'enhancers.bed','w',newline = '')
